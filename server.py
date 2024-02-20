@@ -135,7 +135,7 @@ def signup():
                 hashed_pass = generate_password_hash(request.form["password"], "pbkdf2", 10)
 
                 new_user = User(
-                    username=request.form["username"],
+                    username=request.form["username"].title(),
                     password=hashed_pass,
                     email=request.form["email"]
                 )
