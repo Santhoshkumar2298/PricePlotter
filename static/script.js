@@ -20,10 +20,14 @@ sidebarBtn.onclick = function() {
     sidebar.classList.toggle("active");
     if (sidebar.classList.contains("active")) {
         sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+        footer.classList.toggle("hide");
+        logoName.classList.toggle("hide");
         footer.classList.toggle("show");
         logoName.classList.toggle("show");
     } else {
         sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        footer.classList.toggle("show");
+        logoName.classList.toggle("show");
         footer.classList.toggle("hide");
         logoName.classList.toggle("hide");
     }
@@ -36,7 +40,6 @@ if (select != null) {
 
 
 function toggleSpinClass(element) {
-    console.log("EVENT TRIGGERED")
     var iconElement = element.querySelector('i');
 
     if (iconElement.classList.contains('bx-spin')) {

@@ -1,6 +1,5 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectField, TextAreaField
-from wtforms.fields.simple import HiddenField
 from wtforms.validators import DataRequired, Email, Length, EqualTo, URL
 
 
@@ -34,8 +33,8 @@ class ForgotForm(FlaskForm):
                                                                                                         "Match")])
 
     send_otp = SubmitField(label="Send OTP", name="send_otp")
-    submit_otp = SubmitField(label="Submit",  name="submit_otp")
-    submit_pass = SubmitField(label="Submit",  name="submit_pass")
+    submit_otp = SubmitField(label="Submit", name="submit_otp")
+    submit_pass = SubmitField(label="Submit", name="submit_pass")
     show_send_otp = False
     show_submit_otp = False
     show_submit_pass = False

@@ -593,6 +593,7 @@
 nav .sidebar-button i{
   font-size: 1.8rem;
   margin-right: 2.5%;
+  cursor:pointer;
 }
 
 .content-section nav .profile-details{

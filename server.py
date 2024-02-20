@@ -19,13 +19,13 @@ from forms import LoginForm, SignUpForm, AddItemForm, ProfileForm, ForgotForm
 
 app = Flask(__name__)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
-app.config["SECRET_KEY"] = os.getenv("MY_SECRET")
+app.config["SECRET_KEY"] = os.getenv("CSRF_SECRET")
 
 bootstrap = Bootstrap5(app)
 toastr = Toastr(app)
 
 # CONNECTING DB TO THE APP
-app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("MY_DB")
+app.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DB_URI")
 db = SQLAlchemy(model_class=Base)
 db.init_app(app)
 
@@ -342,4 +342,4 @@ if __name__ == "__main__":
     scheduler_thread = threading.Thread(target=start_scheduler)
     scheduler_thread.start()
 
-    app.run(debug=True)
+    app.run(debug=False)
