@@ -7,7 +7,7 @@ from datetime import timedelta
 import schedule
 import sqlalchemy
 from flask import Flask, render_template, request, flash, redirect, url_for
-from flask_bootstrap import Bootstrap5
+from flask_bootstrap import Bootstrap
 from flask_login import LoginManager, login_user, login_required, current_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
 from flask_toastr import Toastr
@@ -21,7 +21,7 @@ app = Flask(__name__)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
 app.config["SECRET_KEY"] = os.getenv("CSRF_SECRET")
 
-bootstrap = Bootstrap5(app)
+bootstrap = Bootstrap(app)
 toastr = Toastr(app)
 
 # CONNECTING DB TO THE APP
