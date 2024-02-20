@@ -1,0 +1,103 @@
+{% with is_home=is_home %}
+{% include "header.html" %}
+{% endwith %}
+
+<section class="container-fluid form-section">
+    <div class="form-holder">
+        <h1>Welcome Back !</h1>
+
+        {% if not is_forgot_pass %}
+        <form method="post" action="{{url_for('login')}}"
+              novalidate>
+            {{ form.csrf_token }}
+            <div class="form-row">
+                <label class="label"> {{ form.email.label }} </label>
+                <p>{{ form.email(size=30) }}</p>
+                {% for err in form.email.errors %}
+                <p style="color:red">{{err}}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form-row">
+                <label class="label">{{ form.password.label }}</label>
+                <p>{{ form.password(size=30) }}</p>
+                {% for err in form.password.errors %}
+                <p style="color:red">{{err}}</p>
+                {% endfor %}
+            </div>
+            <div class="forget-pass-holder">
+                <a href="{{url_for('forgot_pass')}}" class="forget-pass">Forget Password ?</a>
+            </div>
+            <div class="text-center">
+                {{ form.login(class="btn btn-lg button") }}
+            </div>
+        </form>
+
+        {% else: %}
+        <form method="post" action="{{ url_for('forgot_pass') }}" novalidate>
+            {{form.csrf_token}}
+
+            <div class="form-row">
+                <label class="label">{{ form.email.label }}</label>
+                <p>{{ form.email(size=30) }}</p>
+                {% for err in form.email.errors %}
+                <p style="color:red">{{ err }}</p>
+                {% endfor %}
+            </div>
+
+            {% if form.show_send_otp %}
+            <div class="text-center">
+                {{ form.send_otp(class="btn btn-lg button") }}
+            </div>
+
+
+            {% elif form.show_submit_otp %}
+            <div class="form-row">
+                <label class="label">{{ form.otp.label }}</label>
+                <p>{{ form.otp(size=30) }}</p>
+                {% for err in form.otp.errors %}
+                <p style="color:red">{{ err }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="text-center">
+                {{ form.submit_otp(class="btn btn-lg button") }}
+            </div>
+
+
+            {% elif form.show_submit_pass %}
+            <div class="form-row">
+                <label class="label">{{ form.new_pass.label }}</label>
+                <p>{{ form.new_pass(size=30) }}</p>
+                {% for err in form.new_pass.errors %}
+                <p style="color:red">{{ err }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form-row">
+                <label class="label">{{ form.new_cpass.label }}</label>
+                <p>{{ form.new_cpass(size=30) }}</p>
+                {% for err in form.new_cpass.errors %}
+                <p style="color:red">{{ err }}</p>
+                {% endfor %}
+            </div>
+            <div class="text-center">
+                {{ form.submit_pass(class="btn btn-lg button") }}
+            </div>
+            {% endif %}
+        </form>
+        {% endif %}
+
+        <div class="signup-link">
+            <p>Are you a New User ?</p>
+            <a href="/signup">SignUp</a>
+        </div>
+
+
+    </div>
+
+</section>
+
+{% with year=year %}
+{% include "footer.html" %}
+{% endwith %}

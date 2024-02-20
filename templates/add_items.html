@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% with page = "analytics" %}
+{% include "sidebar.html" %}
+{% endwith %}
+
+<section class="content-section">
+    {% with title = "Track Analytics", user_name=current_user.username %}
+    {% include "navbar.html" %}
+    {% endwith %}
+
+    <div class="main-content">
+        <div class="col-lg-6 col-md-4 pt-3 pb-5 m-auto">
+            <div class="formHolder blue-text">
+                <div class="form-background"></div>
+
+                {% if is_edit: %}
+                <h4 class="text-center mt-2">Edit Item</h4>
+                {% else: %}
+                <h4 class="text-center mt-2">Add Items to Track</h4>
+                {% endif %}
+
+                <form action=" {% if not is_edit: %}
+                               {{url_for('add_items')}}
+                                {% else: %}
+                                {{ url_for('edit_item', product_id = id)}}
+                                {% endif %}"
+
+                      method="post" id="add-form" novalidate>
+                    {{form.csrf_token}}
+                    <div class="form-group mt-3">
+                        <label class="blue-text">{{ form.product_name.label }}</label>
+                        {{ form.product_name(size=30, class="form-control", placeholder="Product Name") }}
+                        {% for err in form.product_name.errors %}
+                        <p class="error">{{err}}</p>
+                        {% endfor %}
+                    </div>
+                    <div class="form-group mt-3">
+                        <label class="blue-text">{{ form.site_name.label }}</label>
+                        {{form.site_name(size=30, class="form-control", placeholder="Site Name") }}
+                        {% for err in form.site_name.errors %}
+                        <p class="error">{{err}}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label class="blue-text">{{ form.product_url.label }}</label>
+                        {{form.product_url(size=30, class="form-control", placeholder="Product URL") }}
+                        {% for err in form.product_url.errors %}
+                        <p class="error">{{err}}</p>
+                        {% endfor %}
+                    </div>
+
+                    <div class="form-group mt-3">
+                        <label class="blue-text">{{ form.target_price.label }}</label>
+                        {{form.target_price(size=30, class="form-control", placeholder="Target Price") }}
+                        {% for err in form.target_price.errors %}
+                        <p class="error">{{err}}</p>
+                        {% endfor %}
+                    </div>
+
+                    {% if is_edit: %}
+                    <div class="text-center mt-3">
+                        {{ form.update_btn(class="btn btn-lg addBtn") }}
+                    </div>
+                    {% else: %}
+                    <div class="text-center mt-3">
+                        {{ form.add_btn(class="btn btn-lg addBtn") }}
+                    </div>
+                    {% endif %}
+
+                    <div id="loading-spinner" class="text-center mt-2">
+                        <div class="spinner-border text-light" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

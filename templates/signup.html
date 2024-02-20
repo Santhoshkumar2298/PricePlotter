@@ -1,0 +1,56 @@
+{% with is_home=is_home %}
+{% include "header.html" %}
+{% endwith %}
+
+<section class="container-fluid form-section">
+    <div class="form-holder p-5">
+        <h1>Sign Up Now !</h1>
+        <form method="post" action="{{ url_for('signup') }}" novalidate>
+            <div class="form-row">
+                <label class="label"> {{ form.username.label }}</label>
+                <p>{{ form.username(size=30)}}</p>
+                {% for err in form.username.errors %}
+                <p style="color:red">{{ err }} </p>
+                {% endfor %}
+            </div>
+
+            <div class="form-row">
+                <label class="label"> {{ form.email.label }}</label>
+                <p>{{ form.email(size=30) }}</p>
+                {% for err in form.email.errors %}
+                <p style="color:red"> {{ err }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form-row">
+                <label class="label"> {{ form.password.label }}</label>
+                <p> {{ form.password(size=30) }}</p>
+                {% for err in form.password.errors %}
+                <p style="color:red"> {{ err }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="form-row">
+                <label class="label"> {{ form.confirm_pass.label }}</label>
+                <p> {{ form.confirm_pass(size=30) }}</p>
+                {% for err in form.confirm_pass.errors %}
+                <p style="color:red"> {{ err }}</p>
+                {% endfor %}
+            </div>
+
+            <div class="text-end">
+                {{ form.signup(class="btn btn-lg button") }}
+            </div>
+        </form>
+
+        <div class="signup-link">
+            <p>Already a User ?</p>
+            <a href="/login">Login</a>
+        </div>
+    </div>
+
+</section>
+
+{% with year=year %}
+{% include "footer.html" %}
+{% endwith %}

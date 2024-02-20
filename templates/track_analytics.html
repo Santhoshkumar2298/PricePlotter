@@ -1,0 +1,123 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% with page = "analytics" %}
+{% include "sidebar.html" %}
+{% endwith %}
+
+<section class="content-section">
+    {% with title = "Track Analytics", user_name=current_user.username %}
+    {% include "navbar.html" %}
+    {% endwith %}
+
+    <div class="main-content">
+        <div class="add-products">
+            <p>Item Count : {{ product_list | length }}</p>
+            <a href="{{url_for('add_items')}}">
+                <button class="btn">
+                    <span>Add Items</span>
+                    <i class='bx bxs-box bx-tada'></i>
+                </button>
+            </a>
+
+            <!--            <div class="text-center" id="syncSpinner">-->
+            <!--                <div class="spinner-border spinner-border-sm" role="status">-->
+            <!--                    <span class="visually-hidden">Loading...</span>-->
+            <!--                </div>-->
+            <!--            </div>-->
+        </div>
+
+        <div class="table-responsive p-3">
+            <table class="table table-sm table-borderless mb-0">
+                <thead>
+                <tr class="text-center">
+                    <th scope="col" width="5%">#</th>
+                    <th scope="col" width="28%">Product Details</th>
+                    <th scope="col" width="28%">Price Stats</th>
+                    <th scope="col" width="28%">Actions</th>
+                    <th scope="col" width="10%">History</th>
+                </tr>
+                </thead>
+                <tbody class="text-center">
+                {% if product_list | length < 1: %}
+                <tr>
+                    <td class="p-5 error text-center text-secondary" colspan="5">No Items to Track</td>
+                </tr>
+                {% else: %}
+
+                {% for product in product_list %}
+                <tr>
+                    <td>{{loop.index}}</td>
+                    <td class="text-start">
+                        <div class="p-2 m-auto">
+                            <a class="product-title" href="{{product.product_url | safe}}" target="_blank">{{product.product_name
+                                | safe}}</a>
+                            <p class="site-title">{{product.site_name | safe}}</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="p-2 text-start row">
+                            <p class="price-title col-lg-5">Initial Price </p>
+                            <span class="col-lg-2">:</span>
+                            <span class="price-value col-lg-5">Rs. {{product.product_price | safe}}</span>
+
+                            <p class="price-title col-lg-5">Target Price </p>
+                            <span class="col-lg-2">:</span>
+                            <span class="price-value col-lg-5">Rs. {{product.target_price | safe}}</span>
+
+                            <p class="price-title col-lg-5">Current Price </p>
+                            <span class="col-lg-2">:</span>
+                            <span class="price-value col-lg-5">Rs. {{product.current_price | safe}}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="p-2">
+                            <a href="{{url_for('edit_item', product_id=product.id)}}" class="btn btn-primary"
+                               title="Edit">
+                                <i class='bx bxs-edit'></i>
+                            </a>
+
+                            <a href="{{url_for('delete_item', product_id=product.id)}}" class="btn btn-danger"
+                               title="Delete">
+                                <i class='bx bxs-trash'></i>
+                            </a>
+
+                            {% if not product.track_status: %}
+                            <a href="{{url_for('track_status', product_id=product.id, toggle='on')}}"
+                               class="btn btn-success" title="Start Tracking">
+                                <i class='bx bx-play-circle'></i>
+                            </a>
+                            {% else: %}
+                            <a href="{{url_for('track_status', product_id=product.id, toggle='off')}}"
+                               class="btn btn-warning" title="Stop Tracking">
+                                <i class='bx bx-pause-circle'></i>
+                            </a>
+
+                            <a href="{{url_for('sync_now', product_id=product.id)}}"
+                               class="btn btn-info syncBtn" title="Sync Now" onclick="toggleSpinClass(this)">
+                                <i class='bx bx-refresh'></i>
+                            </a>
+
+                            {% endif %}
+                        </div>
+                    </td>
+
+                    <td>
+                        <div class="p-2">
+                            <button class="btn viewBtn">
+                                View
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

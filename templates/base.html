@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- FLASK TOASTER -->
+    {{ toastr.include_jquery() }}
+    {{ toastr.include_toastr_css() }}
+    {{ toastr.message() }}
+
+    <!--GOOGLE FONTS-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Exo+2&family=Joan&family=Protest+Strike&family=Spline+Sans+Mono&display=swap"
+          rel="stylesheet">
+
+    <!-- FONT AWESOME-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!--  BOXICONS CDN  -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+
+    <!--  FLASK BOOTSTRAP 5   -->
+    {% block styles %}
+    {{ bootstrap.load_css() }}
+    {% endblock %}
+
+    {% block scripts %}
+    {{ bootstrap.load_js() }}
+
+    <!--CUSTOM STYLE SHEET-->
+    <link rel="stylesheet" href="/static/style.css">
+
+    {% endblock %}
+
+    <!-- TITLE-->
+    <link rel="icon" href="/static/images/logo1.png" type="image/x-icon">
+    <title>Price Plotter</title>
+</head>
+<body>
+{% block content %}{% endblock %}
+
+<!-- JS FOR TOASTER -->
+{{ toastr.include_toastr_js() }}
+
+<script src="/static/script.js"></script>
+</body>
+</html>

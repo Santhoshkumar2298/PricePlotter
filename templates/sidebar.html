@@ -1,0 +1,48 @@
+
+<div class="sidebar">
+    <div class="logo-details">
+        <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="brand-logo">
+        <span class="logo_name">Price Plotter</span>
+    </div>
+    <ul class="nav-links">
+        <li>
+            <a class="sidebar-links {% if page == 'dashboard' %}active{% endif %}" href="{{ url_for('dashboard')}}">
+                <i class='bx bx-grid-alt'></i>
+                <span class="links_name">Dashboard</span>
+            </a>
+        </li>
+        <li>
+            <a class="sidebar-links {% if page == 'analytics' %}active{% endif %}" href="{{ url_for('analytics')}}">
+                <i class='bx bx-pie-chart-alt-2'></i>
+                <span class="links_name">Track Analytics</span>
+            </a>
+        </li>
+        <li>
+            <a class="sidebar-links {% if page == 'profile' %}active{% endif %}" href="{{ url_for('profile_settings') }}">
+                <i class='bx bx-cog'></i>
+                <span class="links_name">Profile Settings</span>
+            </a>
+        </li>
+
+        <li>
+            <a class="sidebar-links" href="{{url_for('logout')}}">
+                <i class='bx bx-log-out'></i>
+                <span class="links_name">Log out</span>
+            </a>
+        </li>
+    </ul>
+    <div class="social-links sidebar-footer">
+
+        <a href="https://github.com/Santhoshkumar2298" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/santhoshkumarv98" target="_blank"><i
+                class="fa-brands fa-linkedin"></i></a>
+        <a href="https://twitter.com/_D4rk_Ph03n1x" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://t.me/Phoenix2222" target="_blank"><i class="fa-brands fa-telegram"></i></a>
+        <a href="mailto:rangasan221998@gmail.com" target="_blank"><i class="fa-brands fa-google"></i></a>
+        <a href="https://www.instagram.com/rangaraj_santhosh?igsh=ZGNjOWZkYTE3MQ==" target="_blank"><i
+                class="fa-brands fa-instagram"></i></a>
+        <a href="https://wa.me/918220566734" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+        <p>&copy; Santhoshkumar V | All rights reserved. </p>
+    </div>
+
+</div>

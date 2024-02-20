@@ -1,0 +1,116 @@
+{% with is_home=is_home %}
+{% include "header.html" %}
+{% endwith %}
+
+<section class="homepage">
+    <!-- HERO SECTION -->
+    <section class="hero-section container-fluid" id="hero-section">
+        <h1>Welcome to Price Plotter Your Ultimate Shopping Companion !</h1>
+
+        <div class="row">
+            <div class="col-lg-8 col-md-12 show-text">
+                <p>Are you tired of endlessly browsing through multiple websites to find the best deal on your favorite
+                    products?
+                    <br/><br/> Look no further! <span><a href="#feature-section"> Price Plotter</a> </span> is here to
+                    revolutionize
+                    your online shopping experience.
+                </p>
+
+            </div>
+            <div class="col-lg-4 col-md-12">
+                <img src="{{ url_for('static', filename='images/logo1.png') }}" alt="brand-logo">
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section id="feature-section" class="container-fluid">
+        <h1>Features</h1>
+        <p class="about-feature"> With Price Plotter, you can effortlessly track prices of products from top online
+            retailers such as Amazon,
+            Flipkart, and many more will be added soon, all in one place. Our user-friendly interface allows you to compare prices,
+            set price drop alerts, and make informed purchasing decisions with ease.
+        </p>
+
+        <div class="container">
+            <div class="row">
+                {% for feature in features: %}
+                <div class="col-lg-4 p-3">
+                    <div class="card">
+                        <div class="border1"></div>
+                        <div class="content">
+                            <div class="front-page">
+                                <img src="{{ url_for('static', filename='images/' + feature['image']) }}" alt="">
+                                <p class="front-content"> {{ feature["title"] }} </p>
+                                <p class="badge rounded-pill text-bg-light">Know more ...</p>
+                            </div>
+
+                            <div class="back-page">
+                                <span class="back-content">{{ feature["description"] }}</span>
+                            </div>
+
+                        </div>
+                        <span class="bottom-text">Price Plotter</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!--WHY SECTION-->
+    <section class="container-fluid why-section">
+        <h1>Why Choose Price Plotter?</h1>
+
+        <div class="row why-content">
+            <img class="col-lg-3" src="static/images/save-time1.png" alt="save-time">
+            <div class="col-lg-9">
+                <h3>Save Time</h3>
+                <p>Say goodbye to endlessly scrolling through multiple websites. Price Plotter brings all the
+                    information you need right to your fingertips.</p>
+            </div>
+        </div>
+
+        <div class="row why-content">
+            <img class="col-lg-3" src="static/images/piggy-bank1.png" alt="save-money">
+            <div class="col-lg-9">
+                <h3>Save Money</h3>
+                <p>With our price tracking and alert system, you'll never overpay for a product again. Get the best
+                    deals and maximize your savings.</p>
+            </div>
+        </div>
+
+        <div class="row why-content">
+            <img class="col-lg-3" src="static/images/promote1.png" alt="save-money">
+            <div class="col-lg-9">
+                <h3>Stay Informed</h3>
+                <p>Our comprehensive platform keeps you updated on price fluctuations and trends, empowering you to make
+                    smart purchasing decisions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!--  SHOUTOUT SECTION  -->
+    <section class="container-fluid shoutout-section">
+        <h1>Why Wait? Start Saving Today!</h1>
+        <p class="shoutout-txt">
+            SignUp to Price Plotter now and take control of your online
+            shopping experience.
+        </p>
+        <p class="hello-txt">Say hello to effortless price
+            tracking and goodbye to buyer's remorse!</p>
+        <a class="btn btn-lg" href="/login">SignUp</a>
+
+        <p class="disclaimer"> Disclaimer: Price Plotter is not affiliated with Amazon, Flipkart, or any other
+            third-party retailers
+            mentioned. All product names, logos, and brands are property of their respective owners.
+        </p>
+    </section>
+
+</section>
+
+
+{% with year=year %}
+{% include "footer.html" %}
+{% endwith %}
+
