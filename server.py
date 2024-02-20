@@ -9,7 +9,6 @@ import sqlalchemy
 from flask import Flask, render_template, request, flash, redirect, url_for
 from flask_login import LoginManager, login_user, login_required, current_user, logout_user
 from flask_sqlalchemy import SQLAlchemy
-from flask_bootstrap import Bootstrap
 from flask_toastr import Toastr
 from werkzeug.security import generate_password_hash, check_password_hash
 from Models import Base, User, Product
@@ -21,7 +20,6 @@ app = Flask(__name__)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
 app.config["SECRET_KEY"] = os.getenv("CSRF_SECRET")
 
-bootstrap = Bootstrap(app)
 toastr = Toastr(app)
 
 # CONNECTING DB TO THE APP
