@@ -1,6 +1,10 @@
 import os
 import random
 import time
+import asyncio
+from aiohttp import ClientSession
+from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from selenium import webdriver
 from selenium.common import WebDriverException
@@ -13,41 +17,75 @@ MY_EMAIL = os.getenv('MY_EMAIL')
 MY_PASSWORD = os.getenv('MY_PASSWORD')
 
 
-def check_valid_url(url, site):
-    edge_options = EdgeOptions()
-    # edge_options.add_argument("--headless")
-    edge_options.add_argument('--enable-javascript')
-    edge_options.add_experimental_option("detach", True)
-    driver = webdriver.Edge(options=edge_options)
-    driver.get(url)
+async def fetch_html(url):
+    async with ClientSession() as session:
+        async with session.get(url) as response:
+            return await response.text()
 
-    time.sleep(3)
 
+async def extract_price(html, site):
+    soup = BeautifulSoup(html, 'html.parser')
     if site.lower() == "amazon":
         try:
-            time.sleep(7)
-            price = driver.find_element(By.CLASS_NAME, 'a-price-whole')
-            price = price.text.replace(",", "")
-            return price
+            price_element = soup.find(class_='a-price-whole')
+            return price_element.text.replace(",", "") if price_element else False
         except Exception as e:
             print(str(e))
             return False
-        except TimeoutError:
-            return "TimeOut"
-
     elif site.lower() == "flipkart":
         try:
-            time.sleep(7)
-            price = driver.find_element(By.CLASS_NAME, '_30jeq3')
-            stripped_price = price.text.strip("₹")
-            stripped_price = stripped_price.replace(",", "")
-            return stripped_price
+            price_element = soup.find(class_='_30jeq3')
+            return price_element.text.strip("₹").replace(",", "") if price_element else False
         except Exception as e:
             print(str(e))
             return False
-        except TimeoutError:
-            return "TimeOut"
-    driver.quit()
+
+
+async def check_valid_url(url, site):
+    try:
+        html = await fetch_html(url)
+        price = await extract_price(html, site)
+        return price
+    except Exception as e:
+        print(f"Error fetching price: {str(e)}")
+        return False
+
+
+# def check_valid_url(url, site):
+#     edge_options = EdgeOptions()
+#     # edge_options.add_argument("--headless")
+#     edge_options.add_argument('--enable-javascript')
+#     edge_options.add_experimental_option("detach", True)
+#     driver = webdriver.Edge(options=edge_options)
+#     driver.get(url)
+#
+#     time.sleep(3)
+#
+#     if site.lower() == "amazon":
+#         try:
+#             time.sleep(7)
+#             price = driver.find_element(By.CLASS_NAME, 'a-price-whole')
+#             price = price.text.replace(",", "")
+#             return price
+#         except Exception as e:
+#             print(str(e))
+#             return False
+#         except TimeoutError:
+#             return "TimeOut"
+#
+#     elif site.lower() == "flipkart":
+#         try:
+#             time.sleep(7)
+#             price = driver.find_element(By.CLASS_NAME, '_30jeq3')
+#             stripped_price = price.text.strip("₹")
+#             stripped_price = stripped_price.replace(",", "")
+#             return stripped_price
+#         except Exception as e:
+#             print(str(e))
+#             return False
+#         except TimeoutError:
+#             return "TimeOut"
+#     driver.quit()
 
 
 # FOR UDEMY IN CASE

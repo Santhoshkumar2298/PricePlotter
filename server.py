@@ -193,7 +193,7 @@ def profile_settings():
 
 @app.route("/analytics/add", methods=["GET", "POST"])
 @login_required
-def add_items():
+async def add_items():
     form = AddItemForm()
 
     if request.method == "POST":
@@ -205,12 +205,10 @@ def add_items():
 
             if request.form["site_name"].lower() in request.form["product_url"]:
                 try:
-                    product_price = check_valid_url(request.form["product_url"], request.form["site_name"].lower())
+                    product_price = await check_valid_url(request.form["product_url"],
+                                                          request.form["site_name"].lower())
 
-                    if product_price == "TimeOut":
-                        flash("Server is Not Responding, Please try later", "error")
-                    elif not product_price:
-                        print(product_price)
+                    if not product_price:
                         flash("Invalid URL", "warning")
                     else:
                         new_product = Product(
@@ -233,6 +231,48 @@ def add_items():
                 flash("Site Name and Url is Mismatch", "warning")
 
     return render_template("add_items.html", form=form)
+
+
+# def add_items():
+#     form = AddItemForm()
+#
+#     if request.method == "POST":
+#         if not form.validate_on_submit():
+#             pass
+#
+#         if (request.form["product_name"] != "" and request.form["product_url"] != "" and
+#                 request.form["target_price"] != ""):
+#
+#             if request.form["site_name"].lower() in request.form["product_url"]:
+#                 try:
+#                     product_price = check_valid_url(request.form["product_url"], request.form["site_name"].lower())
+#
+#                     if product_price == "TimeOut":
+#                         flash("Server is Not Responding, Please try later", "error")
+#                     elif not product_price:
+#                         print(product_price)
+#                         flash("Invalid URL", "warning")
+#                     else:
+#                         new_product = Product(
+#                             product_name=request.form["product_name"].title(),
+#                             site_name=request.form["site_name"].title(),
+#                             product_url=request.form["product_url"],
+#                             product_price=product_price,
+#                             current_price=product_price,
+#                             target_price=request.form["target_price"],
+#                             user_id=current_user.id
+#                         )
+#
+#                         db.session.add(new_product)
+#                         db.session.commit()
+#                         flash("Product Added for tracking Successfully", "success")
+#                     return redirect(url_for("analytics"))
+#                 except Exception as e:
+#                     print(f"Error : {str(e)}")
+#             else:
+#                 flash("Site Name and Url is Mismatch", "warning")
+#
+#     return render_template("add_items.html", form=form)
 
 
 @app.route("/analytics/edit/<int:product_id>", methods=["GET", "POST"])
