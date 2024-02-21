@@ -16,6 +16,7 @@ from controller import check_valid_url, mail_price_alert, send_feedback, send_ot
 from features import features
 from forms import LoginForm, SignUpForm, AddItemForm, ProfileForm, ForgotForm
 
+
 app = Flask(__name__)
 app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=1)
 app.config["SECRET_KEY"] = os.getenv("CSRF_SECRET")
@@ -368,16 +369,5 @@ def update_price():
                     mail_price_alert(item.current_price, user_mail, product_name)
 
 
-def start_scheduler():
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
-
-
-schedule.every().day.at("06:00").do(update_price)
-
 if __name__ == "__main__":
-    scheduler_thread = threading.Thread(target=start_scheduler)
-    scheduler_thread.start()
-
     app.run(debug=True)
