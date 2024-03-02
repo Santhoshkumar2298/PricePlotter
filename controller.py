@@ -13,15 +13,14 @@ MY_PASSWORD = os.getenv('MY_PASSWORD')
 
 def check_valid_url(url, site):
     edge_options = EdgeOptions()
-    print("STARTED")
-    # edge_options.add_argument("--headless")
+    edge_options.add_argument("--headless")
     edge_options.add_argument('--enable-javascript')
     edge_options.add_experimental_option("detach", True)
-    driver = webdriver.Edge(options=edge_options)
+    edge_options.use_chromium = True
+    driver = webdriver.Edge(edge_options)
     driver.get(url)
 
     if site.lower() == "amazon":
-        print("AMAZON")
         try:
             time.sleep(3)
             price = driver.find_element(By.CLASS_NAME, 'a-price-whole')
