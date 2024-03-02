@@ -47,23 +47,6 @@ def check_valid_url(url, site):
     driver.quit()
 
 
-# FOR UDEMY IN CASE
-
-# elif site == "udemy":
-#     try:
-#         driver = webdriver.Edge()
-#         driver.get(url)
-#         time.sleep(5)
-#         price = driver.find_element(By.XPATH,
-#             "//div[@class='base-price-text-module--container--2P5fs ud-clp-price-text']
-#             //div[@class='base-price-text-module--price-part--3AFBv base-price-text-module--original
-#             -price--3kPJa ud-clp-list-price ud-text-sm']//span[@class='ud-sr-only']/following-sibling::span//span")
-#         print(price)
-#         return True
-#     except Exception as e:
-#         print(str(e))
-#         return False
-
 def mail_price_alert(price, email, product_name):
     with smtplib.SMTP("smtp.gmail.com", 587) as connection:
         connection.starttls()
