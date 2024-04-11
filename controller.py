@@ -77,6 +77,8 @@ def check_valid_url(url, site):
             'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate, br', 'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8',
         }
         response = requests.get(url, headers=headers)
+        logger.info(f"Sending request to {url}")
+        logger.debug(f"Request headers: {headers}")
         logger.info(response.content)
         time.sleep(4)
         soup = BeautifulSoup(response.content, 'lxml')
