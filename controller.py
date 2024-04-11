@@ -1,5 +1,7 @@
 import os
 import time
+
+from bottle import unicode
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -53,13 +55,14 @@ def check_valid_url(url, site):
         'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                       "Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
     response = requests.get(url, headers=headers)
-
     if site.lower() == "amazon":
         time.sleep(5)
         soup = BeautifulSoup(response.content, 'html5lib')
-        price = soup.find('span', attrs={'class': 'a-price-whole'})
+        price = soup.find('span', class_= 'a-price-whole')
+        print(price.get_text())
         if price is not None:
             price_text = price.get_text(strip=True)
+            print(price_text)
             return price_text.strip(".")
         else:
             return False
@@ -67,9 +70,11 @@ def check_valid_url(url, site):
     elif site.lower() == "flipkart":
         time.sleep(5)
         soup = BeautifulSoup(response.content, 'html5lib')
-        price = soup.find('div', attrs={'class': '_30jeq3 _16Jk6d'})
+        price = soup.find('div', class_='_30jeq3 _16Jk6d')
+        print(price.get_text())
         if price is not None:
             price_text = price.get_text(strip=True)
+            print(price_text)
             stripped_price = price_text.strip("₹").replace(",", "")
             return stripped_price
         else:

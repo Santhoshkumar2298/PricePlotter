@@ -207,7 +207,6 @@ def add_items():
                     if product_price == "TimeOut":
                         flash("Server is Not Responding, Please try later", "error")
                     elif not product_price:
-                        print(product_price)
                         flash("Invalid URL", "warning")
                     else:
                         new_product = Product(
