@@ -53,8 +53,8 @@ def check_valid_url(url, site):
         'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                       "Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
     response = requests.get(url, headers=headers)
+    time.sleep(7)
     if site.lower() == "amazon":
-        time.sleep(7)
         soup = BeautifulSoup(response.content, 'html5lib')
         try:
             price = soup.find('span', class_='a-price-whole')
@@ -68,7 +68,6 @@ def check_valid_url(url, site):
             return False
 
     elif site.lower() == "flipkart":
-        time.sleep(7)
         soup = BeautifulSoup(response.content, 'html5lib')
         try:
             price = soup.find('div', class_='_30jeq3 _16Jk6d')
@@ -80,6 +79,7 @@ def check_valid_url(url, site):
         except Exception as e:
             print(f"Error: {str(e)}")
             return False
+
 
 def mail_price_alert(price, email, product_name):
     with smtplib.SMTP("smtp.gmail.com", 587) as connection:
