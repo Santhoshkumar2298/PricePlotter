@@ -75,10 +75,11 @@ def check_valid_url(url, site):
             'Origin': "https://www.flipkart.com/",
             'Referer': "https://www.flipkart.com/"
         }
-        print("hello World")
         response = requests.get(url, headers=headers)
+        print(response.content, flush=True)
         time.sleep(4)
         soup = BeautifulSoup(response.content, 'lxml')
+        print(soup.prettify(), flush=True)
         try:
             price = soup.find('div', class_='_30jeq3 _16Jk6d')
             price_text = price.get_text(strip=True)
