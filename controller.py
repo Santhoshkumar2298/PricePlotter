@@ -54,30 +54,32 @@ def check_valid_url(url, site):
                       "Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
     response = requests.get(url, headers=headers)
     if site.lower() == "amazon":
-        time.sleep(15)
+        time.sleep(7)
         soup = BeautifulSoup(response.content, 'html5lib')
-        price = soup.find('span', class_= 'a-price-whole')
-        print(price.get_text())
-        if price is not None:
+        try:
+            price = soup.find('span', class_='a-price-whole')
+            print(price.get_text())
+
             price_text = price.get_text(strip=True)
             print(price_text)
             return price_text.strip(".")
-        else:
+        except Exception as e:
+            print(f"Error: {str(e)}")
             return False
 
     elif site.lower() == "flipkart":
-        time.sleep(15)
+        time.sleep(7)
         soup = BeautifulSoup(response.content, 'html5lib')
-        price = soup.find('div', class_='_30jeq3 _16Jk6d')
-        print(price.get_text())
-        if price is not None:
+        try:
+            price = soup.find('div', class_='_30jeq3 _16Jk6d')
+            print(price.get_text())
             price_text = price.get_text(strip=True)
             print(price_text)
             stripped_price = price_text.strip("₹").replace(",", "")
             return stripped_price
-        else:
+        except Exception as e:
+            print(f"Error: {str(e)}")
             return False
-
 
 def mail_price_alert(price, email, product_name):
     with smtplib.SMTP("smtp.gmail.com", 587) as connection:
