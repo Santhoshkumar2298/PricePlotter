@@ -77,7 +77,7 @@ def check_valid_url(url, site):
         }
 
         response = requests.get(url, headers=headers)
-        time.sleep(5)
+        time.sleep(4)
         soup = BeautifulSoup(response.content, 'lxml')
         try:
             price = soup.find('div', class_='_30jeq3 _16Jk6d')
