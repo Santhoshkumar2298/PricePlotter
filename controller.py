@@ -75,7 +75,7 @@ def check_valid_url(url, site):
             'Origin': "https://www.flipkart.com/",
             'Referer': "https://www.flipkart.com/"
         }
-
+        print("hello World")
         response = requests.get(url, headers=headers)
         time.sleep(4)
         soup = BeautifulSoup(response.content, 'lxml')
