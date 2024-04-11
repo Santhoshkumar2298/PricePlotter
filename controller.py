@@ -2,9 +2,6 @@ import os
 import time
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
-from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.edge.options import Options as EdgeOptions
 import smtplib
 import requests
 
@@ -49,40 +46,42 @@ MY_PASSWORD = os.getenv('MY_PASSWORD')
 #     driver.quit()
 
 def check_valid_url(url, site):
-    if site.lower() == "amazon":
+    # if site.lower() == "amazon":
+    #     headers = {
+    #         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36 Edg/123.0.0.0",
+    #         'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate, br', 'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8',
+    #         'Origin': "https://www.amazon.in",
+    #         'Referer': "https://www.amazon.in/"
+    #     }
+    #     response = requests.get(url, headers=headers)
+    #     time.sleep(3)
+    #     soup = BeautifulSoup(response.content, 'html5lib')
+    #     print(soup.prettify())
+    #     try:
+    #         price = soup.findall('div')
+    #         print(price)
+    #
+    #         # price_text = price.get_text(strip=True)
+    #         # print(price_text)
+    #         # return price_text.strip(".")
+    #     except Exception as e:
+    #         print(f"Error: {str(e)}")
+    #         return False
+
+    if site.lower() == "flipkart":
         headers = {
-            'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0"
-        }
-        response = requests.get(url, headers=headers)
-        time.sleep(7)
-        print(response.status_code)
-        soup = BeautifulSoup(response.content, 'html5lib')
-        try:
-            price = soup.find('span', class_='a-price-whole')
-            print(price.get_text())
-
-            price_text = price.get_text(strip=True)
-            print(price_text)
-            return price_text.strip(".")
-        except Exception as e:
-            print(f"Error: {str(e)}")
-            return False
-
-    elif site.lower() == "flipkart":
-        headers = {
-            'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0"
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36",
+            'Accept': '*/*', 'Accept-Encoding': 'gzip, deflate, br', 'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8',
+            'Origin': "https://www.flipkart.com/",
+            'Referer': "https://www.flipkart.com/"
         }
 
         response = requests.get(url, headers=headers)
-        time.sleep(7)
-        print(response.status_code)
-
-        soup = BeautifulSoup(response.content, 'html5lib')
+        time.sleep(5)
+        soup = BeautifulSoup(response.content, 'lxml')
         try:
             price = soup.find('div', class_='_30jeq3 _16Jk6d')
-            print(price.get_text())
             price_text = price.get_text(strip=True)
-            print(price_text)
             stripped_price = price_text.strip("₹").replace(",", "")
             return stripped_price
         except Exception as e:

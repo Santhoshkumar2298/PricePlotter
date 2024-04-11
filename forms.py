@@ -43,7 +43,7 @@ class ForgotForm(FlaskForm):
 class AddItemForm(FlaskForm):
     product_name = StringField(label="Product Name", validators=[DataRequired()])
     site_name = SelectField(label="Select Site",
-                            choices=[("amazon", "Amazon"), ("flipkart", "Flipkart")])
+                            choices=[("flipkart", "Flipkart")])
     product_url = StringField(label="Product URL",
                               validators=[DataRequired(), URL(require_tld=True, message="Invalid URL")])
     target_price = StringField(label="Target Price", validators=[DataRequired()])
