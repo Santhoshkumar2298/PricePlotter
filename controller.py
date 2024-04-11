@@ -11,6 +11,7 @@ MY_EMAIL = os.getenv('MY_EMAIL')
 MY_PASSWORD = os.getenv('MY_PASSWORD')
 
 logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
 
 # def check_valid_url(url, site):
 #     edge_options = EdgeOptions()
