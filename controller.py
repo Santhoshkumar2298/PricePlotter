@@ -1,14 +1,25 @@
 import os
+import sys
 import time
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 import smtplib
 import requests
+import logging
 
 load_dotenv()
 MY_EMAIL = os.getenv('MY_EMAIL')
 MY_PASSWORD = os.getenv('MY_PASSWORD')
 
+logger = logging.getLogger(__name__)
+
+file_handler = logging.FileHandler("myprog.log")
+logger.addHandler(file_handler)
+
+log_file = open("myprog.log", "a")
+
+# Replace sys.stdout with the log file
+sys.stdout = log_file
 
 # def check_valid_url(url, site):
 #     edge_options = EdgeOptions()
