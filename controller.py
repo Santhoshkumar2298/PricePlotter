@@ -49,12 +49,13 @@ MY_PASSWORD = os.getenv('MY_PASSWORD')
 #     driver.quit()
 
 def check_valid_url(url, site):
-    headers = {
-        'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                      "Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
-    response = requests.get(url, headers=headers)
-    time.sleep(7)
     if site.lower() == "amazon":
+        headers = {
+            'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0"
+        }
+        response = requests.get(url, headers=headers)
+        time.sleep(7)
+        print(response.status_code)
         soup = BeautifulSoup(response.content, 'html5lib')
         try:
             price = soup.find('span', class_='a-price-whole')
@@ -68,6 +69,14 @@ def check_valid_url(url, site):
             return False
 
     elif site.lower() == "flipkart":
+        headers = {
+            'User-Agent': "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0"
+        }
+
+        response = requests.get(url, headers=headers)
+        time.sleep(7)
+        print(response.status_code)
+
         soup = BeautifulSoup(response.content, 'html5lib')
         try:
             price = soup.find('div', class_='_30jeq3 _16Jk6d')
