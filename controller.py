@@ -1,7 +1,5 @@
 import os
 import time
-
-from bottle import unicode
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
 from selenium import webdriver
