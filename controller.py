@@ -54,7 +54,7 @@ def check_valid_url(url, site):
                       "Chrome/42.0.2311.135 Safari/537.36 Edge/12.246"}
     response = requests.get(url, headers=headers)
     if site.lower() == "amazon":
-        time.sleep(5)
+        time.sleep(15)
         soup = BeautifulSoup(response.content, 'html5lib')
         price = soup.find('span', class_= 'a-price-whole')
         print(price.get_text())
@@ -66,7 +66,7 @@ def check_valid_url(url, site):
             return False
 
     elif site.lower() == "flipkart":
-        time.sleep(5)
+        time.sleep(15)
         soup = BeautifulSoup(response.content, 'html5lib')
         price = soup.find('div', class_='_30jeq3 _16Jk6d')
         print(price.get_text())
