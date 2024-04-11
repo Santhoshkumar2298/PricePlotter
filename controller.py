@@ -1,5 +1,4 @@
 import os
-import sys
 import time
 from dotenv import load_dotenv
 from bs4 import BeautifulSoup
@@ -12,14 +11,6 @@ MY_EMAIL = os.getenv('MY_EMAIL')
 MY_PASSWORD = os.getenv('MY_PASSWORD')
 
 logger = logging.getLogger(__name__)
-
-file_handler = logging.FileHandler("myprog.log")
-logger.addHandler(file_handler)
-
-log_file = open("myprog.log", "a")
-
-# Replace sys.stdout with the log file
-sys.stdout = log_file
 
 # def check_valid_url(url, site):
 #     edge_options = EdgeOptions()
@@ -87,10 +78,10 @@ def check_valid_url(url, site):
             'Referer': "https://www.flipkart.com/"
         }
         response = requests.get(url, headers=headers)
-        print(response.content, flush=True)
+        logger.info(response.content)
         time.sleep(4)
         soup = BeautifulSoup(response.content, 'lxml')
-        print(soup.prettify(), flush=True)
+        logger.info(soup.prettify())
         try:
             price = soup.find('div', class_='_30jeq3 _16Jk6d')
             price_text = price.get_text(strip=True)
